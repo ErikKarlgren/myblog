@@ -60,8 +60,8 @@
   --h1:      clamp(1.55rem, 1.30rem + 1.10vw, 2.10rem);
 
   /* --- Measurements ------------------------------------------------------ */
-  --measure: 65ch;      /* max line length. ~65 characters, the sweet spot.
-                           Smaller = narrower column. Try 55ch to compare. */
+  --measure: 80ch;      /* max line length. 80 characters to match the Linux
+                           kernel coding guidelines. */
   --gap:     1.25rem;   /* vertical space between blocks                     */
   --radius:  4px;       /* corner rounding on code blocks                    */
 }
