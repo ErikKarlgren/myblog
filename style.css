@@ -259,18 +259,6 @@ footer p {
   margin: 0;
 }
 
-/* The Links list: no bullets, and enough vertical padding that each link is
-   a comfortable thing to hit with a thumb. */
-.links {
-  list-style: none;
-  padding-left: 0;
-}
-
-.links a {
-  display: inline-block;
-  padding-block: 0.35rem;
-}
-
 
 /* ===========================================================================
    8. CODE
