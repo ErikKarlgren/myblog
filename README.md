@@ -3,6 +3,10 @@
 A small personal site. Two files do the work, there is no build step, no
 package manager, and no JavaScript.
 
+## Notes from human
+
+I'm no web developer, so I let Deepseek generate the initial files as well as this readme as scaffolding. The initial contents of index.html are the "lorem upsum" that Deepseek vomited here, not reflecting neither my personality nor my ideas. I will replace it all with hand-made and "imperfect" prose once I'm happy with the way this site looks like.
+
 ## The files
 
 | File | What it is | Do you edit it? |
