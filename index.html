@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  This is the whole site. There is no build step, no framework and no
+  JavaScript: the browser reads these two files and draws the page.
+
+  PLACEHOLDERS TO REPLACE
+  Every spot you need to edit is tagged with the word EDIT. To find them all:
+
+      grep -n "EDIT:" index.html
+
+  The current list is:
+    - Erik Karlgren Domercq        (3 places: <title>, <h1>, footer)
+    - YOUR TAGLINE     (the line under your name)
+    - the three paragraphs of prose in the About section
+    - the four bullets under "What I work on"
+    - the three links under Links (delete the ones you don't use)
+    - the email address in Contact
+  ============================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <!-- Handles every screen width, and shrink-to-fit=no stops iOS from
+       zooming out. viewport-fit=cover is what lets the page reach into the
+       notch; the safe-area padding for it lives in style.css. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- EDIT: your name, then a short description. This is what search engines
+       and link previews show, not what is drawn on the page. -->
+  <title>Erik Karlgren Domercq — Embedded Linux Developer</title>
+  <meta name="description" content="About Erik Karlgren Domercq: an embedded Linux developer working on low-level systems in C, C++ and Rust.">
+
+  <!-- Declares that this page works in both colour schemes. Without it, a
+       phone in dark mode paints a white page for a split second before
+       style.css loads. Cheap line, removes a whole class of ugly. -->
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Colour of the browser's own bar (Android/iOS). Not CSS: it must be a
+       literal colour, and it must be kept in sync by hand with the
+       background colour token in style.css. Two tags here, because the tint
+       follows the theme the phone is set to. -->
+  <meta name="theme-color" content="#fdfdfc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#101216" media="(prefers-color-scheme: dark)">
+
+  <!-- Favicon, written inline as a "data:" URL so the browser never makes a
+       second request for an icon file. The awkward %3C / %23 are just
+       percent-encoded < and # — a bare # would be read as a URL fragment.
+       The xmlns is a namespace name, not an address; nothing is fetched. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3.5' fill='%2316181d'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.2 5.4 L6.9 8 L4.2 10.6'/%3E%3Cpath d='M9 11.2 L12 11.2'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- The stylesheet path is relative (no leading slash), so the site works
+       at example.com/, at example.com/myblog/, or straight off your disk. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <!-- EDIT: your name. -->
+    <h1>Erik Karlgren Domercq</h1>
+
+    <!-- EDIT: one line describing what you do. -->
+    <p class="tagline">Embedded Linux &middot; systems programming &middot; C / C++ / Rust</p>
+
+    <!-- BLOG
+         There is no blog yet, so this nav is commented out. When you add
+         blog/index.html, delete the two comment lines around the <nav> and
+         the page grows a menu. The README explains the whole procedure. -->
+    <!--
+    <nav class="site-nav">
+      <a href="./" aria-current="page">About</a>
+      <a href="blog/">Blog</a>
+    </nav>
+    -->
+  </header>
+
+  <main>
+
+    <h2>About</h2>
+
+    <!-- EDIT: replace these paragraphs with your own words. -->
+    <p>
+      I'm an embedded Linux software developer. Most of my work happens close
+      to the hardware: boot, kernel interfaces, device drivers, and the C, C++
+      and Rust code that sits on both sides of that boundary.
+    </p>
+    <p>
+      I like problems that only make sense once you know what the machine is
+      actually doing &mdash; scheduling, memory, concurrency, and the gap
+      between what a language promises and what the silicon delivers.
+    </p>
+
+    <h2>What I work on</h2>
+
+    <!-- EDIT: your own list. Keep it to a handful of lines. -->
+    <ul>
+      <li>Embedded Linux systems: board bring-up, bootloaders, and the long tail of hardware quirks</li>
+      <li>Kernel and userspace interfaces: drivers, device trees, syscalls, IPC</li>
+      <li>Systems programming in C, C++ and Rust</li>
+      <li>Debugging the kind of bug that never reproduces on a desk</li>
+    </ul>
+
+    <h2>Links</h2>
+
+    <!-- EDIT: your own profiles. Delete any list item you don't need.
+         rel="me" on the Mastodon link is what verifies the link on your
+         profile page; it does nothing if you don't use Mastodon. -->
+    <ul class="links">
+      <li><a href="https://github.com/YOUR-USERNAME">GitHub</a></li>
+      <li><a href="https://gitlab.com/YOUR-USERNAME">GitLab</a></li>
+      <li><a href="https://mastodon.social/@YOUR-USERNAME" rel="me">Mastodon</a></li>
+    </ul>
+
+    <h2>Contact</h2>
+
+    <!-- EDIT: your email. Be aware that a plain address in HTML will be
+         collected by spam bots eventually, and without JavaScript there is
+         no clean way to hide it. If that bothers you, delete this section
+         and let the Links list be the only way to reach you. -->
+    <p>
+      Email is the most reliable way to reach me:
+      <a href="mailto:you@example.com">you@example.com</a>.
+    </p>
+
+  </main>
+
+  <footer>
+    <!-- EDIT: add a static year here, and update it when you feel like it.
+         There is no JavaScript to do it for you, on purpose. -->
+    <p>
+      &copy; 2026 Erik Karlgren Domercq &middot;
+      text <a href="LICENSE-CC-BY-SA-4.0">CC BY-SA 4.0</a> &middot;
+      code <a href="LICENSE-MIT">MIT</a>
+    </p>
+  </footer>
+
+</body>
+</html>

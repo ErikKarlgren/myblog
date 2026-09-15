@@ -1,0 +1,323 @@
+/* ===========================================================================
+   style.css — the entire look of the site.
+
+   HOW TO READ THIS FILE
+   ---------------------
+   It is written top-down, so later rules can override earlier ones. The
+   section numbers are a map:
+
+     1. Design tokens      <- colours, fonts and sizes. Edit here first.
+     2. Dark mode          <- only the colours change
+     3. Reset              <- makes browser defaults predictable
+     4. Page layout        <- the centered column
+     5. HEADINGS           <- where h1, h2, h3 are styled
+     6. Text and links
+     7. Header and footer
+     8. Code               <- unused now, ready for blog posts
+     9. Site navigation    <- unused now, appears when you add a blog
+
+   The single most useful habit: change a value in section 1, not in
+   section 5. Every colour in this file is a name (--bg, --accent, ...)
+   defined exactly once, in one block.
+   =========================================================================== */
+
+
+/* ===========================================================================
+   1. DESIGN TOKENS
+   =========================================================================== */
+
+:root {
+  /* --- Colours: light mode --------------------------------------------- */
+  --bg:      #fdfdfc;   /* page background. Off-white: kinder than #fff    */
+  --text:    #16181d;   /* body text                                       */
+  --muted:   #5d616b;   /* secondary text: tagline, footer                 */
+  --rule:    #e4e5e9;   /* the two hairline separators                     */
+  --accent:  #1d5c9e;   /* links                                           */
+  --code-bg: #eceef2;   /* background behind inline code and code blocks   */
+
+  /* --- Fonts ------------------------------------------------------------
+     No font files are downloaded. "system-ui" means "whatever font this
+     operating system uses for its own menus", so the page looks native
+     everywhere and costs zero bytes of network traffic.
+
+     The names after the first one are fallbacks for older browsers, and
+     the bare "sans-serif" / "monospace" at the end is a generic family
+     that every browser can resolve, so this can never end up fontless. */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+               Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+
+  /* --- Type scale -------------------------------------------------------
+     clamp(minimum, preferred, maximum) slides each size smoothly between
+     two values as the window gets wider. One line per size, no media
+     queries, identical on a 320px phone and a 2560px monitor.
+
+     Want a bigger h2? Change the third number in --h2 and nothing else. */
+  --text-sm: clamp(0.80rem, 0.77rem + 0.15vw, 0.88rem);  /* footer, tagline */
+  --text:    clamp(1.00rem, 0.96rem + 0.20vw, 1.06rem);  /* body copy       */
+  --h2:      clamp(1.10rem, 1.03rem + 0.35vw, 1.30rem);
+  --h1:      clamp(1.55rem, 1.30rem + 1.10vw, 2.10rem);
+
+  /* --- Measurements ------------------------------------------------------ */
+  --measure: 65ch;      /* max line length. ~65 characters, the sweet spot.
+                           Smaller = narrower column. Try 55ch to compare. */
+  --gap:     1.25rem;   /* vertical space between blocks                     */
+  --radius:  4px;       /* corner rounding on code blocks                    */
+}
+
+
+/* ===========================================================================
+   2. DARK MODE
+   ===========================================================================
+   Nothing here but colours. The phone tells the browser which scheme the
+   user prefers, so there is no toggle to click and no JavaScript involved.
+
+   If you change --bg here, change the second theme-color value in
+   index.html to match, or the browser bar will be the wrong shade.
+   =========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:      #101216;
+    --text:    #e7e8ea;
+    --muted:   #9aa0ab;
+    --rule:    #262b34;
+    --accent:  #7fb4e8;
+    --code-bg: #1c2027;
+  }
+}
+
+
+/* ===========================================================================
+   3. RESET
+   ===========================================================================
+   Browser defaults vary. These few rules make them predictable. Only the
+   box-sizing rule is load-bearing for the layout.
+   =========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;   /* padding is counted inside widths, not added */
+}
+
+html {
+  background: var(--bg);    /* on the root element, this fills the whole
+                               window even if the column inside is narrow */
+  color-scheme: light dark; /* dark scrollbars and form controls */
+
+  /* Stops iOS Safari from inflating text when the phone is turned sideways */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img, video {
+  max-width: 100%;          /* no image can ever push the layout sideways */
+  height: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);   /* visible keyboard focus ring */
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+
+/* ===========================================================================
+   4. PAGE LAYOUT
+   =========================================================================== */
+
+body {
+  /* max-width caps the line length on a desktop monitor. On a phone the
+     column is simply the full screen, which is what we want. */
+  max-width: var(--measure);
+  margin-inline: auto;        /* center the column */
+
+  color: var(--text);
+  font-family: var(--font-sans);   /* normal text is sans-serif */
+  font-size: var(--text);
+  line-height: 1.65;
+  overflow-wrap: break-word;  /* stops a long URL from causing sideways scroll */
+
+  /* The padding has to clear the notch on a modern phone and the
+     home-indicator bar at the bottom. "viewport-fit=cover" in index.html
+     lets the page reach those edges; env() reports how far in the unsafe
+     area extends; max() then takes whichever is larger, so on a phone with
+     no notch you simply get the normal padding.
+
+     The first line is a fallback: if a browser does not understand env()
+     or max(), the four lines after it are discarded and this one stands. */
+  padding: 2.5rem 1.25rem 3.5rem;
+  padding-top:    max(2.5rem,  env(safe-area-inset-top));
+  padding-right:  max(1.25rem, env(safe-area-inset-right));
+  padding-bottom: max(3.5rem,  env(safe-area-inset-bottom));
+  padding-left:   max(1.25rem, env(safe-area-inset-left));
+}
+
+
+/* ===========================================================================
+   5. HEADINGS
+   ===========================================================================
+   The typographic idea of the whole site: headings are monospace, body text
+   is not. Each size is one line, so changing h2 cannot disturb h1.
+   =========================================================================== */
+
+h1, h2, h3 {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;  /* monospace looks loose at display sizes; this
+                               pulls it in by a hair */
+  text-wrap: balance;       /* avoids a single word stranded on the last
+                               line. Ignored by older browsers, harmless */
+}
+
+h1 {
+  font-size: var(--h1);
+  margin: 0 0 0.4rem;
+}
+
+h2 {
+  font-size: var(--h2);
+  margin: 2.5rem 0 0.75rem;
+}
+
+h3 {
+  font-size: var(--text);
+  margin: 1.75rem 0 0.5rem;
+}
+
+
+/* ===========================================================================
+   6. TEXT AND LINKS
+   =========================================================================== */
+
+p {
+  margin: 0 0 var(--gap);
+  text-wrap: pretty;        /* slightly better line breaks; safe to delete */
+}
+
+ul, ol {
+  margin: 0 0 var(--gap);
+  padding-left: 1.25rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
+
+li::marker {
+  color: var(--muted);      /* quiet bullets */
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+
+/* ===========================================================================
+   7. HEADER AND FOOTER
+   ===========================================================================
+   Two hairlines are the only decoration on the page.
+   =========================================================================== */
+
+header {
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-mono);   /* delete this line for sans-serif */
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* The Links list: no bullets, and enough vertical padding that each link is
+   a comfortable thing to hit with a thumb. */
+.links {
+  list-style: none;
+  padding-left: 0;
+}
+
+.links a {
+  display: inline-block;
+  padding-block: 0.35rem;
+}
+
+
+/* ===========================================================================
+   8. CODE
+   ===========================================================================
+   Nothing on the page uses this yet. It is here because the moment you add
+   a blog post with a code sample, <code> and <pre> should already look
+   right instead of forcing you to stop and style them.
+   =========================================================================== */
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+}
+
+code {
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius);
+  font-size: 0.9em;
+}
+
+pre {
+  background: var(--code-bg);
+  padding: 1rem;
+  border-radius: var(--radius);
+  overflow-x: auto;         /* long lines scroll the block, not the page */
+  line-height: 1.5;
+}
+
+pre code {
+  background: none;         /* the block already has the background */
+  padding: 0;
+  font-size: 0.85rem;
+  white-space: pre;
+}
+
+
+/* ===========================================================================
+   9. SITE NAVIGATION
+   ===========================================================================
+   Unused until you uncomment the <nav> in index.html. "display: flex" puts
+   the links in a row with even spacing; it needs no JavaScript.
+   =========================================================================== */
+
+.site-nav {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}

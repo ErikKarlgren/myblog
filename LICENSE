@@ -1,0 +1,33 @@
+License
+=======
+
+This repository holds two different kinds of work, and they are licensed
+separately. Replacing the "Erik Karlgren Domercq" below is the only edit this file needs.
+
+  Source code
+  -----------
+  index.html, style.css
+
+      MIT License -- see LICENSE-MIT
+
+  Written content
+  ---------------
+  The prose in index.html, and any articles added later
+
+      Creative Commons Attribution-ShareAlike 4.0 International
+      (CC BY-SA 4.0) -- see LICENSE-CC-BY-SA-4.0
+
+In plain words
+--------------
+
+  Code: you may copy, modify and reuse it for anything, including commercial
+  projects, as long as the copyright notice stays with it.
+
+  Writing: you may quote, republish or adapt it, including commercially, as
+  long as you credit the author and license your version under the same
+  terms.
+
+  Copyright (c) 2026 Erik Karlgren Domercq.
+
+The two files named above contain the actual license texts. This page is a
+summary to save you reading them, not a replacement for them.
